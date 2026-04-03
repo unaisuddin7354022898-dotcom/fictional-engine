@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A1 Pani Puri - Ultra Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#fff8f0;color:#333;overflow-x:hidden;position:relative;}
+
+/* Floating stars/emojis background */
+.star{position:absolute;font-size:20px;animation:moveStars linear infinite;pointer-events:none;opacity:0.7;}
+@keyframes moveStars{0%{transform:translateY(0);}100%{transform:translateY(110vh);}}
+
+/* NAV */
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px;background:rgba(255,255,255,0.8);backdrop-filter:blur(10px);}
+nav h2{font-size:28px;color:#ff6f3c;}
+nav a{color:#ff6f3c;margin-left:15px;text-decoration:none;font-weight:600;transition:0.3s;}
+nav a:hover{color:#ff9c65;}
+
+/* HERO */
+.hero{height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#ffe6d0,#fff1c1);position:relative;overflow:hidden;}
+.hero h2{font-size:45px;margin-bottom:10px;color:#ff6f3c;animation:fadeInDown 1s;}
+.hero p{font-size:20px;margin-bottom:15px;animation:fadeInUp 1s;}
+.hero .slider-text{display:inline-block;overflow:hidden;height:30px;margin-top:10px;font-weight:600;color:#ff8533;}
+.hero .slider-text span{display:block;animation:slideText 12s linear infinite;}
+.btn{padding:10px 25px;border:none;background:#ff6f3c;color:white;border-radius:25px;font-weight:bold;cursor:pointer;transition:0.3s;}
+.btn:hover{background:#ff9c65;color:white;}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes slideText{0%,20%{transform:translateY(0);}25%,45%{transform:translateY(-30px);}50%,70%{transform:translateY(-60px);}75%,95%{transform:translateY(-90px);}100%{transform:translateY(0);}}
+
+/* Glowing hero background */
+.hero::before{
+  content:"";
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background:radial-gradient(circle,rgba(255,215,180,0.2),transparent 70%);
+  animation:glowAnim 6s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+@keyframes glowAnim{
+  0%{transform:scale(1);}
+  100%{transform:scale(1.05);}
+}
+
+/* MENU */
+.menu{padding:60px 20px;text-align:center;background:#fff1e6;}
+.menu h2{font-size:35px;margin-bottom:40px;color:#ff6f3c;}
+.cards{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;}
+.card{background:#fff3e6;padding:20px;border-radius:15px;width:220px;transition:0.5s;box-shadow:0 8px 20px rgba(0,0,0,0.15);opacity:0;transform:translateY(20px);}
+.card.show{opacity:1;transform:translateY(0);}
+.card img{width:100%;border-radius:10px;margin-bottom:15px;}
+.card h3{font-size:22px;margin-bottom:5px;color:#ff6f3c;}
+.card p{margin-bottom:10px;font-size:18px;color:#ff8533;}
+
+/* CART */
+.cart{position:fixed;right:10px;bottom:10px;background:#ffe6d0;padding:15px;border-radius:15px;width:250px;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
+.cart h3{margin-bottom:10px;text-align:center;color:#ff6f3c;}
+.cart ul{max-height:200px;overflow-y:auto;padding-left:20px;color:#333;}
+.cart button{width:100%;margin-top:10px;background:#ff6f3c;color:white;border-radius:20px;}
+.cart button:hover{background:#ff9c65;}
+
+/* ABOUT & REVIEWS */
+.about, .reviews{padding:60px 20px;text-align:center;}
+.about h2, .reviews h2{font-size:35px;margin-bottom:30px;color:#ff6f3c;}
+.review-card{background:#fff3e6;padding:20px;border-radius:15px;margin:10px auto;max-width:400px;transition:0.3s;box-shadow:0 6px 15px rgba(0,0,0,0.1);}
+.review-card:hover{transform:translateY(-5px);}
+.review-card p{margin-bottom:10px;}
+.stars{color:#ff8533;}
+.reviews-container{display:flex;overflow-x:auto;scroll-behavior:smooth;padding-bottom:10px;gap:15px;}
+.reviews-container::-webkit-scrollbar{display:none;}
+
+/* HERO PARTICLES 3D */
+.hero-particle{position:absolute;pointer-events:none;opacity:0.8;transition:0.3s;transform-style:preserve-3d;}
+
+/* MOBILE */
+@media(max-width:768px){.hero h2{font-size:28px;}.hero p{font-size:16px;}nav{flex-direction:column;text-align:center;}.cards{flex-direction:column;align-items:center;}.reviews-container{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<div id="starsContainer"></div>
+
+<!-- NAV -->
+<nav>
+  <h2>A1 Pani Puri</h2>
+  <div>
+    <a href="#">Home</a>
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="#reviews">Reviews</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <h2>🔥 Best Chaat in Town</h2>
+    <p>Aziz Bhai ka chaat ka taste legendary 💯! Har customer kehte hain “Best Chaat in Town!”, fresh ingredients aur authentic flavour ke saath. Door door se log aate hain sirf Aziz Bhai ke liye. Har item ka taste ekdum unique, spicy aur tasty! Har bite me khushi aur maza guaranteed 😍. Chaat ke maamle me Aziz Bhai ka style alag hi level ka hai 🔥.</p>
+    <div class="slider-text">
+      <span>Fresh & Tasty 🌟 | Door Door se log aate 😍 | Har Item Super Delicious 🍴 | Best Chaat in Town 🔥 | Phulki lovers unite 🥳</span>
+    </div>
+    <button class="btn" onclick="scrollMenu()">Order Now</button>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <h2>Our Menu</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1604908176997-4312c44fa1a2" alt="Chole Chaat">
+      <h3>Chole Chaat</h3>
+      <p>₹20</p>
+      <button class="btn" onclick="addItem('Chole Chaat',20)">Add</button>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1625944525903-c4b9d98efb10" alt="Dahi Puri">
+      <h3>Dahi Puri</h3>
+      <p>₹20</p>
+      <button class="btn" onclick="addItem('Dahi Puri',20)">Add</button>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1617196032235-1aaae5b62269" alt="Pani Puri">
+      <h3>Pani Puri</h3>
+      <p>₹20</p>
+      <button class="btn" onclick="addItem('Pani Puri',20)">Add</button>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <h2>About Aziz Bhai</h2>
+  <p>Aziz Bhai ka chaat ka taste legendary hai! 😍 Har customer kehte hain “Best Chaat in Town!”, door door se log aate hain, har item fresh aur super tasty 💯🔥. Har bite me khushi aur maza guaranteed hai. Chaat ke maamle me Aziz Bhai ka style alag hi level ka hai. Har chaat item me perfect blend of spices aur flavours. Customers kehte hain, “Ek baar try karoge to bas Aziz Bhai ke liye hi wapas aoge!”</p>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <h2>Customer Reviews</h2>
+  <div class="reviews-container">
+    <div class="review-card"><p>“Chaat ka taste perfect! Har baar fresh aur tasty.”</p><div class="stars">⭐⭐⭐⭐⭐</div></div>
+    <div class="review-card"><p>“Pani Puri ka jawab nahi! Aziz Bhai ka style alag hi hai.”</p><div class="stars">⭐⭐⭐⭐⭐</div></div>
+    <div class="review-card"><p>“Dahi Puri aur Chole Chaat try kiye, full satisfaction!”</p><div class="stars">⭐⭐⭐⭐⭐</div></div>
+    <div class="review-card"><p>“Door door se log aate hain sirf Aziz Bhai ke liye 😍”</p><div class="stars">⭐⭐⭐⭐⭐</div></div>
+    <div class="review-card"><p>“Phulki ka maza aur jokes ke saath best experience!”</p><div class="stars">⭐⭐⭐⭐⭐</div></div>
+  </div>
+</section>
+
+<!-- CART -->
+<div class="cart">
+  <h3>🛒 Cart</h3>
+  <ul id="cartItems"></ul>
+  <p id="totalPrice" style="margin-top:10px;">Total: ₹0</p>
+  <button class="btn" onclick="orderWhatsApp()">Order via WhatsApp</button>
+</div>
+
+<script>
+// Floating stars/emojis background
+const starsContainer=document.getElementById('starsContainer');
+const emojis=['🌟','✨','🍴','🥳','😍','🍲'];
+for(let i=0;i<30;i++){
+  let star=document.createElement('div');
+  star.classList.add('star');
+  star.style.left=Math.random()*100+'vw';
+  star.style.top=Math.random()*100+'vh';
+  star.style.fontSize=(15+Math.random()*20)+'px';
+  star.style.animationDuration=(5+Math.random()*5)+'s';
+  star.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+  starsContainer.appendChild(star);
+}
+
+// Scroll animation for cards
+const cards=document.querySelectorAll('.card');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){entry.target.classList.add('show');}
+  });
+},{threshold:0.3});
+cards.forEach(card=>observer.observe(card));
+
+// Hero 3D particles
+const heroSection=document.querySelector('.hero');
+const heroParticles=[];
+const particleChars=['🌟','✨','🍴','🍲','😍','🥳'];
+for(let i=0;i<35;i++){
+  let p=document.createElement('div');
+  p.classList.add('hero-particle');
+  p.style.left=Math.random()*100+'%';
+  p.style.top=Math.random()*100+'%';
+  p.style.fontSize=(20+Math.random()*30)+'px';
+  p.innerText=particleChars[Math.floor(Math.random()*particleChars.length)];
+  heroSection.appendChild(p);
+  heroParticles.push({el:p,x:Math.random()*100,y:Math.random()*100,dx:(Math.random()-0.5)/1.5,dy:(Math.random()-0.5)/1.5, rot:Math.random()*360, dRot:(Math.random()-0.5)*2});
+}
+
+// Animate hero particles
+let mouse={x:0,y:0};
+document.addEventListener('mousemove',(e)=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+function animateParticles(){
+  heroParticles.forEach(p=>{
+    p.x+=p.dx+(mouse.x-window.innerWidth/2)/5000;
+    p.y+=p.dy+(mouse.y-window.innerHeight/2)/5000;
+    p.rot+=p.dRot;
+    if(p.x>100)p.x=0;if(p.x<0)p.x=100;
+    if(p.y>100)p.y=0;if(p.y<0)p.y=100;
+    p.el.style.left=p.x+'%';
+    p.el.style.top=p.y+'%';
+    p.el.style.transform=`rotateY(${p.rot}deg)`;
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// Sparkle trail and sound effect
+const trailContainer=heroSection;
+const sparkleChars=['✨','🌟','🍴','🍲','😍'];
+document.addEventListener('mousemove', e => {
+  for(let i=0;i<2;i++){
+    let s=document.createElement('div');
+    s.style.position='absolute';
+    s.style.left=e.clientX+Math.random()*10-5+'px';
+    s.style.top=e.clientY+Math.random()*10-5+'px';
+    s.style.fontSize=(10+Math.random()*15)+'px';
+    s.style.opacity=1;
+    s.style.pointerEvents='none';
+    s.innerText=sparkleChars[Math.floor(Math.random()*sparkleChars.length)];
+    s.style.transition='all 0.8s linear';
+    trailContainer.appendChild(s);
+    setTimeout(()=>{s.style.top=(e.clientY-30)+'px';s.style.opacity=0;},10);
+    setTimeout(()=>{trailContainer.removeChild(s);},900);
+  }
+});
+
+// Pop sound on button hover
+const popSound=new Audio('https://www.soundjay.com/buttons/sounds/button-16.mp3');
+document.querySelectorAll('.btn').forEach(btn=>{
+  btn.addEventListener('mouseenter',()=>{popSound.currentTime=0;popSound.play();});
+});
+
+// Cart system
+let cart=[];
+let total=0;
+function addItem(item, price){
+  let existing=cart.find(i=>i.name===item);
+  if(existing){existing.qty++;}else{cart.push({name:item,qty:1,price:price});}
+  updateCart();
+}
+function updateCart(){
+  let list=document.getElementById("cartItems");
+  let totalEl=document.getElementById("totalPrice");
+  list.innerHTML='';
+  total=0;
+  cart.forEach(i=>{
+    let li=document.createElement('li');
+    li.innerText=`${i.name} x${i.qty}`;
+    list.appendChild(li);
+    total+=i.qty*i.price;
+  });
+  totalEl.innerText=`Total: ₹${total}`;
+}
+function scrollMenu(){document.getElementById("menu").scrollIntoView({behavior:"smooth"});}
+function orderWhatsApp(){
+  if(cart.length===0){alert("Add items first!");return;}
+  let number="919302332196";
+  let msg="Hello Aziz Bhai, I want:\n";
+  cart.forEach(i=>{msg+=`- ${i.name} x${i.qty}\n`;});
+  msg+=`Total: ₹${total}`;
+  let url="https://wa.me/"+number+"?text="+encodeURIComponent(msg);
+  window.open(url,"_blank");
+}
+</script>
+
+</body>
+  </html>
