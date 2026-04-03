@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A1 Pani Puri</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+  <h1>A1 Pani Puri</h1>
+  <div>
+    <a href="#">Home</a>
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div>
+    <h2>Welcome to A1 Pani Puri</h2>
+    <p>Sabse tasty chaat in town 🔥</p>
+    <button class="btn" onclick="orderNow()">Order Now</button>
+  </div>
+</section>
+
+<section class="menu" id="menu">
+  <h2>Our Menu</h2>
+  <div class="cards">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1604908176997-4312c44fa1a2">
+      <h3>Chole Chaat</h3>
+      <p>₹20</p>
+      <button class="btn" onclick="addItem('Chole Chaat')">Order</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1625944525903-c4b9d98efb10">
+      <h3>Dahi Puri</h3>
+      <p>₹20</p>
+      <button class="btn" onclick="addItem('Dahi Puri')">Order</button>
+    </div>
+
+  </div>
+</section>
+
+<section class="about" id="about">
+  <h2>About</h2>
+  <p>Aziz Bhai ki chaat apne unique taste aur quality ke liye famous hai 💯</p>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Contact</h2>
+  <p>📍 Sadar Bazar</p>
+  <p>📞 91XXXXXXXXXX</p>
+  <button class="btn" onclick="sendWhatsApp()">Order on WhatsApp</button>
+</section>
+
+<footer>
+  <p>© 2026 A1 Pani Puri</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+  </html>
