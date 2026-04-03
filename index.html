@@ -60,7 +60,6 @@ nav a:hover{color:#ff9c65;}
 .cart ul{max-height:200px;overflow-y:auto;padding-left:20px;color:#333;}
 .cart button{width:100%;margin-top:10px;background:#ff6f3c;color:white;border-radius:20px;}
 .cart button:hover{background:#ff9c65;}
-.cart .upi-btn{margin-top:5px;}
 
 /* ABOUT & REVIEWS */
 .about, .reviews{padding:60px 20px;text-align:center;}
@@ -155,7 +154,6 @@ nav a:hover{color:#ff9c65;}
   <ul id="cartItems"></ul>
   <p id="totalPrice" style="margin-top:10px;">Total: ₹0</p>
   <button class="btn" onclick="orderWhatsApp()">Order via WhatsApp</button>
-  <button class="btn upi-btn" onclick="orderUPI()">Pay via UPI</button>
 </div>
 
 <script>
@@ -215,7 +213,7 @@ function animateParticles(){
 }
 animateParticles();
 
-// Sparkle trail
+// Sparkle trail and sound effect
 const trailContainer=heroSection;
 const sparkleChars=['✨','🌟','🍴','🍲','😍'];
 document.addEventListener('mousemove', e => {
@@ -263,54 +261,16 @@ function updateCart(){
   totalEl.innerText=`Total: ₹${total}`;
 }
 function scrollMenu(){document.getElementById("menu").scrollIntoView({behavior:"smooth"});}
-
-// WhatsApp order
 function orderWhatsApp(){
-  if(cart.length===0){alert("Add items first!"); return;}
+  if(cart.length===0){alert("Add items first!");return;}
   let number="919302332196";
   let msg="Hello Aziz Bhai, I want:\n";
   cart.forEach(i=>{msg+=`- ${i.name} x${i.qty}\n`;});
   msg+=`Total: ₹${total}`;
-  launchConfetti();
   let url="https://wa.me/"+number+"?text="+encodeURIComponent(msg);
   window.open(url,"_blank");
 }
+</script>
 
-// UPI order
-function orderUPI(){
-  if(cart.length===0){alert("Add items first!"); return;}
-  const upiID = "8827755823@nyes";
-  const name = "A1 Pani Puri";
-  let note="Order:\n";
-  cart.forEach(i=>{note+=`- ${i.name} x${i.qty}\n`;});
-  note+=`Total ₹${total}`;
-  launchConfetti();
-  const url = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(name)}&tn=${encodeURIComponent(note)}&am=${total}&cu=INR`;
-  window.open(url, "_blank");
-}
-
-// Confetti animation
-function launchConfetti(){
-  const confettiContainer = document.createElement('div');
-  confettiContainer.style.position = 'fixed';
-  confettiContainer.style.top = '0';
-  confettiContainer.style.left = '0';
-  confettiContainer.style.width = '100%';
-  confettiContainer.style.height = '100%';
-  confettiContainer.style.pointerEvents = 'none';
-  confettiContainer.style.overflow = 'hidden';
-  document.body.appendChild(confettiContainer);
-
-  const colors = ['#ff6f3c','#ff9c65','#ffd700','#ff8533','#ff4081','#4caf50'];
-  const num = 100;
-
-  for(let i=0;i<num;i++){
-    const c = document.createElement('div');
-    c.style.position = 'absolute';
-    c.style.width = (5 + Math.random()*8) + 'px';
-    c.style.height = (10 + Math.random()*10) + 'px';
-    c.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
-    c.style.left = Math.random()*100 + 'vw';
-    c.style.top = '-20px';
-    c.style.opacity = Math.random()+0.5;
-    c.style.transform = `rotate(${
+</body>
+</html>
